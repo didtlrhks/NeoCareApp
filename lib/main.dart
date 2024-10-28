@@ -7,64 +7,176 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return const MaterialApp(
+      home: Scaffold(
+        backgroundColor: Color(0xFFF5F5F5),
+        body: Center(
+          child: WelcomeScreen(),
+        ),
       ),
-      home: const MyHomePage(title: ' Demo Home Page'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+class WelcomeScreen extends StatelessWidget {
+  const WelcomeScreen({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 100, left: 16, right: 16),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            '케어플러스에 \n오신것을 환영합니다!',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 20),
+          const Padding(padding: EdgeInsets.all(40)),
+
+          // 첫 번째 카드
+          Card(
+            elevation: 2,
+            child: InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const CaregiverPage()),
+                );
+              },
+              child: const Padding(
+                padding:
+                    EdgeInsets.only(top: 30, bottom: 30, left: 16, right: 16),
+                child: Row(
+                  children: [
+                    // 텍스트 부분
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '간병인을 요청하고 싶다면',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            '보호자',
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    // 이미지 부분
+                    CircleAvatar(
+                      backgroundImage:
+                          AssetImage('assets/images/caregiver_img.png'),
+                      radius: 30,
+                    ),
+                    Icon(Icons.arrow_forward_ios, size: 20),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 20),
+          const Divider(),
+          const SizedBox(height: 20),
+
+          // 두 번째 카드
+          Card(
+            elevation: 2,
+            child: InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const GuardianPage()),
+                );
+              },
+              child: const Padding(
+                padding:
+                    EdgeInsets.only(top: 30, bottom: 30, left: 16, right: 16),
+                child: Row(
+                  children: [
+                    // 텍스트 부분
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '간병인을 요청하고 싶다면',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            '간병인',
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.deepPurple,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    // 이미지 부분
+                    CircleAvatar(
+                      backgroundImage:
+                          AssetImage('assets/images/guardian_img.png'),
+                      radius: 30,
+                    ),
+                    Icon(Icons.arrow_forward_ios, size: 20),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+// 보호자 페이지
+class CaregiverPage extends StatelessWidget {
+  const CaregiverPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+      appBar: AppBar(title: const Text('보호자 페이지')),
+      body: const Center(
+        child: Text(
+          '보호자 페이지 내용',
+          style: TextStyle(fontSize: 24),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
+
+// 간병인 페이지
+class GuardianPage extends StatelessWidget {
+  const GuardianPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('간병인 페이지')),
+      body: const Center(
+        child: Text(
+          '간병인 페이지 내용',
+          style: TextStyle(fontSize: 24),
+        ),
+      ),
     );
   }
 }
