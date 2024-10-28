@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'Screen/caregiver_page.dart';
+import 'Screen/guardian_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -140,42 +142,6 @@ class WelcomeScreen extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-// 보호자 페이지
-class CaregiverPage extends StatelessWidget {
-  const CaregiverPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('보호자 페이지')),
-      body: const Center(
-        child: Text(
-          '보호자 페이지 내용',
-          style: TextStyle(fontSize: 24),
-        ),
-      ),
-    );
-  }
-}
-
-// 간병인 페이지
-class GuardianPage extends StatelessWidget {
-  const GuardianPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('간병인 페이지')),
-      body: const Center(
-        child: Text(
-          '간병인 페이지 내용',
-          style: TextStyle(fontSize: 24),
-        ),
       ),
     );
   }
