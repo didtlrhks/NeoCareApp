@@ -1,7 +1,20 @@
 import 'package:flutter/material.dart';
 
-class RequestCarePage extends StatelessWidget {
+class RequestCarePage extends StatefulWidget {
   const RequestCarePage({super.key});
+
+  @override
+  State<RequestCarePage> createState() => _RequestCarePageState();
+}
+
+class _RequestCarePageState extends State<RequestCarePage> {
+  String? selectedOption;
+
+  void onSelectOption(String option) {
+    setState(() {
+      selectedOption = option;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,13 +40,17 @@ class RequestCarePage extends StatelessWidget {
               child: ListView(
                 children: [
                   CareOptionCard(
-                    icon: Icons.carrot, // 아이콘을 원하는 이미지로 변경하세요.
+                    imagePath: 'assets/images/guardian_img.png',
                     title: '단순간병',
+                    isSelected: selectedOption == '단순간병',
+                    onTap: () => onSelectOption('단순간병'),
                   ),
                   const SizedBox(height: 16),
                   CareOptionCard(
-                    icon: Icons.carrot, // 아이콘을 원하는 이미지로 변경하세요.
+                    imagePath: 'assets/images/guardian_img.png',
                     title: '전문간병\n(자격증 소지자)',
+                    isSelected: selectedOption == '전문간병\n(자격증 소지자)',
+                    onTap: () => onSelectOption('전문간병\n(자격증 소지자)'),
                   ),
                 ],
               ),
@@ -42,17 +59,22 @@ class RequestCarePage extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {
-                  // 다음 버튼 동작 추가
-                },
+                onPressed: selectedOption != null
+                    ? () {
+                        // 다음 버튼 동작 추가
+                      }
+                    : null,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.grey[200],
+                  backgroundColor:
+                      selectedOption != null ? Colors.black : Colors.grey[200],
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   elevation: 0,
                 ),
-                child: const Text(
+                child: Text(
                   '다음',
-                  style: TextStyle(color: Colors.grey),
+                  style: TextStyle(
+                    color: selectedOption != null ? Colors.white : Colors.grey,
+                  ),
                 ),
               ),
             ),
@@ -64,39 +86,49 @@ class RequestCarePage extends StatelessWidget {
 }
 
 class CareOptionCard extends StatelessWidget {
-  final IconData icon;
+  final String imagePath;
   final String title;
+  final bool isSelected;
+  final VoidCallback onTap;
 
   const CareOptionCard({
     super.key,
-    required this.icon,
+    required this.imagePath,
     required this.title,
+    required this.isSelected,
+    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16.0),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey),
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: Row(
-        children: [
-          Icon(
-            icon,
-            color: Colors.grey,
-            size: 40,
-          ),
-          const SizedBox(width: 16),
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 16,
-              color: Colors.grey,
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(16.0),
+        decoration: BoxDecoration(
+          border: Border.all(color: isSelected ? Colors.black : Colors.grey),
+          borderRadius: BorderRadius.circular(8.0),
+          color: isSelected ? Colors.grey[300] : Colors.white,
+        ),
+        child: Row(
+          children: [
+            Image.asset(
+              imagePath,
+              width: 40,
+              height: 40,
+              // color: isSelected ? Colors.black : Colors.grey,
             ),
-          ),
-        ],
+            const SizedBox(width: 16),
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 16,
+                // color: isSelected ? Colors.black : Colors.grey,
+                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
