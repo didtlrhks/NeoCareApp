@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_neocare/Screen/SelectCareTypePage.dart';
 
-class RequestCarePage extends StatefulWidget {
-  const RequestCarePage({super.key});
+class SelectCareTypePage extends StatefulWidget {
+  const SelectCareTypePage({super.key});
 
   @override
-  State<RequestCarePage> createState() => _RequestCarePageState();
+  State<SelectCareTypePage> createState() => _SelectCareTypePageState();
 }
 
-class _RequestCarePageState extends State<RequestCarePage> {
+class _SelectCareTypePageState extends State<SelectCareTypePage> {
   String? selectedOption;
 
   void onSelectOption(String option) {
@@ -21,8 +20,11 @@ class _RequestCarePageState extends State<RequestCarePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('간병 요청'),
+        title: const Text('간병 유형 선택'),
         elevation: 0,
+        backgroundColor: Colors.white,
+        iconTheme: const IconThemeData(color: Colors.black),
+        titleTextStyle: const TextStyle(color: Colors.black, fontSize: 18),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -30,7 +32,7 @@ class _RequestCarePageState extends State<RequestCarePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              '어떤 간병이 필요하신가요?',
+              '간병 유형을 선택해 주세요.',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -42,16 +44,16 @@ class _RequestCarePageState extends State<RequestCarePage> {
                 children: [
                   CareOptionCard(
                     imagePath: 'assets/images/guardian_img.png',
-                    title: '단순간병',
-                    isSelected: selectedOption == '단순간병',
-                    onTap: () => onSelectOption('단순간병'),
+                    title: '장기 간병',
+                    isSelected: selectedOption == '장기 간병',
+                    onTap: () => onSelectOption('장기 간병'),
                   ),
                   const SizedBox(height: 16),
                   CareOptionCard(
                     imagePath: 'assets/images/guardian_img.png',
-                    title: '전문간병\n(자격증 소지자)',
-                    isSelected: selectedOption == '전문간병\n(자격증 소지자)',
-                    onTap: () => onSelectOption('전문간병\n(자격증 소지자)'),
+                    title: '단기 간병',
+                    isSelected: selectedOption == '단기 간병',
+                    onTap: () => onSelectOption('단기 간병'),
                   ),
                 ],
               ),
@@ -62,11 +64,7 @@ class _RequestCarePageState extends State<RequestCarePage> {
               child: ElevatedButton(
                 onPressed: selectedOption != null
                     ? () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const SelectCareTypePage()),
-                        );
+                        // 다음 페이지로 이동 또는 다른 동작
                       }
                     : null,
                 style: ElevatedButton.styleFrom(
@@ -113,7 +111,7 @@ class CareOptionCard extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border.all(color: isSelected ? Colors.black : Colors.grey),
           borderRadius: BorderRadius.circular(8.0),
-          color: isSelected ? Colors.grey[300] : Colors.white,
+          color: isSelected ? Colors.grey[200] : Colors.white,
         ),
         child: Row(
           children: [
@@ -121,14 +119,13 @@ class CareOptionCard extends StatelessWidget {
               imagePath,
               width: 40,
               height: 40,
-              // color: isSelected ? Colors.black : Colors.grey,
             ),
             const SizedBox(width: 16),
             Text(
               title,
               style: TextStyle(
                 fontSize: 16,
-                // color: isSelected ? Colors.black : Colors.grey,
+                color: isSelected ? Colors.black : Colors.grey,
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
               ),
             ),
