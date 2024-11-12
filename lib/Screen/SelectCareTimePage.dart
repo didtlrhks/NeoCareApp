@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_neocare/Screen/EnterAddressPage.dart';
 
 class SelectCareTimePage extends StatefulWidget {
   const SelectCareTimePage({super.key});
@@ -82,7 +83,11 @@ class _SelectCareTimePageState extends State<SelectCareTimePage> {
               child: ElevatedButton(
                 onPressed: startTime != null && endTime != null
                     ? () {
-                        // 다음 페이지로 이동 또는 다른 동작
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const EnterAddressPage()));
                       }
                     : null,
                 style: ElevatedButton.styleFrom(
