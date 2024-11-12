@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_neocare/Screen/RequestCarePage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -89,7 +90,11 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // 간병 요청하기 버튼 동작
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const RequestCarePage()),
+                );
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF5E35B1),
@@ -100,7 +105,10 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   Icon(Icons.request_quote, color: Colors.white),
                   SizedBox(width: 8),
-                  Text('간병요청하기'),
+                  Text(
+                    '간병요청하기',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ],
               ),
             ),
