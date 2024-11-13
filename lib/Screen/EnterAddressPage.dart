@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_neocare/Screen/PatientInfoPage.dart';
 
 class EnterAddressPage extends StatefulWidget {
   const EnterAddressPage({super.key});
@@ -61,7 +62,11 @@ class _EnterAddressPageState extends State<EnterAddressPage> {
               child: ElevatedButton(
                 onPressed: _addressController.text.isNotEmpty
                     ? () {
-                        // 다음 버튼 동작 추가
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const PatientInfoPage()),
+                        );
                       }
                     : null,
                 style: ElevatedButton.styleFrom(
