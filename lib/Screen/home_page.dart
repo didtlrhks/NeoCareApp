@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_neocare/Screen/RequestCarePage.dart';
+import 'package:flutter_application_neocare/data/dummy_data.dart';
+import 'package:flutter_application_neocare/models/care_request_model.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -69,6 +70,7 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
+//#1 홈
 // 각 탭에 해당하는 화면들 정의
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -90,11 +92,7 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const RequestCarePage()),
-                );
+                // 간병 요청 페이지로 이동
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF5E35B1),
@@ -121,14 +119,123 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            Container(
-              height: 160,
-              width: double.infinity,
-              color: Colors.grey[300],
-              child: const Center(
-                child: Text("진행중인 간병이 없습니다.\n간병을 요청해 주세요."),
-              ),
-            ),
+            dummyCareRequests.isEmpty
+                ? Container(
+                    height: 160,
+                    width: double.infinity,
+                    color: Colors.grey[300],
+                    child: const Center(
+                      child: Text("진행중인 간병이 없습니다.\n간병을 요청해 주세요."),
+                    ),
+                  )
+                : ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: dummyCareRequests.length,
+                    itemBuilder: (context, index) {
+                      final CareRequest request = dummyCareRequests[index];
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 10.0),
+                        child: Card(
+                          color: const Color(0xFFEDE7F6),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8, vertical: 4),
+                                      decoration: BoxDecoration(
+                                        color: Colors.black,
+                                        borderRadius: BorderRadius.circular(4),
+                                      ),
+                                      child: Text(
+                                        request.careCategory,
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                    const Icon(Icons.arrow_forward_ios,
+                                        size: 16, color: Colors.grey),
+                                  ],
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  request.careType,
+                                  style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(height: 8),
+                                Row(
+                                  children: [
+                                    const Icon(Icons.calendar_today,
+                                        size: 14, color: Colors.grey),
+                                    const SizedBox(width: 4),
+                                    Text(
+                                      "${request.startDate.toLocal()} ~ ${request.endDate.toLocal()}",
+                                      style: const TextStyle(
+                                          fontSize: 14, color: Colors.grey),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 4),
+                                Row(
+                                  children: [
+                                    const Icon(Icons.location_on,
+                                        size: 14, color: Colors.grey),
+                                    const SizedBox(width: 4),
+                                    Text(
+                                      request.careLocation,
+                                      style: const TextStyle(
+                                          fontSize: 14, color: Colors.grey),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  "환자 나이: ${request.age}세, ${request.gender}",
+                                  style: const TextStyle(
+                                      fontSize: 14, color: Colors.grey),
+                                ),
+                                Text(
+                                  "장기요양등급: ${request.careLevel}",
+                                  style: const TextStyle(
+                                      fontSize: 14, color: Colors.grey),
+                                ),
+                                Text(
+                                  "거동 가능 여부: ${request.isMobile ? '가능' : '불가능'}",
+                                  style: const TextStyle(
+                                      fontSize: 14, color: Colors.grey),
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  "질환 및 질병: ${request.disease}",
+                                  style: const TextStyle(
+                                      fontSize: 14, color: Colors.grey),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  "기타 특이사항: ${request.notes}",
+                                  style: const TextStyle(
+                                      fontSize: 14, color: Colors.grey),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
           ],
         ),
       ),
@@ -136,6 +243,7 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
+//#2 간병요청
 class RequestCareScreen extends StatelessWidget {
   const RequestCareScreen({super.key});
 
@@ -150,6 +258,7 @@ class RequestCareScreen extends StatelessWidget {
   }
 }
 
+//#3 알림요청
 class NotificationsScreen extends StatelessWidget {
   const NotificationsScreen({super.key});
 
@@ -164,6 +273,7 @@ class NotificationsScreen extends StatelessWidget {
   }
 }
 
+//#4 내정보
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
