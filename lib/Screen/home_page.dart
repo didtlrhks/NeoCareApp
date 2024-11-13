@@ -3,6 +3,7 @@ import 'package:flutter_application_neocare/screen/RequestCarePage.dart';
 import 'package:flutter_application_neocare/data/dummy_data.dart';
 import 'package:flutter_application_neocare/models/care_request_model.dart';
 import 'package:flutter_application_neocare/widget/care_request_card.dart';
+import 'package:image_picker/image_picker.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -219,8 +220,44 @@ class NotificationsScreen extends StatelessWidget {
 }
 
 //#4 내정보
-class ProfileScreen extends StatelessWidget {
+
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  String userName = "김네오";
+  String userPhone = "010-9876-5432";
+  XFile? profileImage;
+
+  Future<void> _pickImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? selectedImage =
+        await picker.pickImage(source: ImageSource.gallery);
+    if (selectedImage != null) {
+      setState(() {
+        profileImage = selectedImage;
+      });
+    }
+  }
+
+  void _navigateToEditProfile() async {
+    final updatedName = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EditProfileScreen(userName: userName),
+      ),
+    );
+
+    if (updatedName != null) {
+      setState(() {
+        userName = updatedName;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -250,24 +287,30 @@ class ProfileScreen extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 20),
-          CircleAvatar(
-            radius: 50,
-            backgroundColor: Colors.grey[200],
-            child: const Icon(
-              Icons.person,
-              size: 50,
-              color: Colors.grey,
+          GestureDetector(
+            onTap: _pickImage,
+            child: CircleAvatar(
+              radius: 50,
+              backgroundImage: profileImage != null
+                  ? Image.file(File(profileImage!.path)).image
+                  : null,
+              backgroundColor: Colors.grey[200],
+              child: profileImage == null
+                  ? const Icon(
+                      Icons.person,
+                      size: 50,
+                      color: Colors.grey,
+                    )
+                  : null,
             ),
           ),
           const SizedBox(height: 10),
-          const Text(
-            "김네오",
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          Text(
+            userName,
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           TextButton.icon(
-            onPressed: () {
-              // 프로필 수정 기능 추가
-            },
+            onPressed: _navigateToEditProfile,
             icon: const Icon(Icons.edit, size: 16, color: Colors.grey),
             label: const Text(
               "프로필 수정",
@@ -315,31 +358,6 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ],
             ),
-          ),
-          const SizedBox(height: 20),
-          Divider(color: Colors.grey[300]),
-          ListTile(
-            leading: const Icon(Icons.lock, color: Colors.black),
-            title: const Text("비밀번호 변경"),
-            onTap: () {
-              // 비밀번호 변경 페이지로 이동
-            },
-          ),
-          Divider(color: Colors.grey[300]),
-          ListTile(
-            leading: const Icon(Icons.history, color: Colors.black),
-            title: const Text("간병인 이용내역"),
-            onTap: () {
-              // 간병인 이용내역 페이지로 이동
-            },
-          ),
-          Divider(color: Colors.grey[300]),
-          ListTile(
-            leading: const Icon(Icons.exit_to_app, color: Colors.black),
-            title: const Text("탈퇴 신청"),
-            onTap: () {
-              // 탈퇴 신청 페이지로 이동
-            },
           ),
         ],
       ),
