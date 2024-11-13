@@ -263,105 +263,178 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              TextButton(
-                onPressed: () {
-                  // 로그아웃 기능 추가
-                },
-                child: const Text(
-                  "로그아웃",
-                  style: TextStyle(color: Colors.grey),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          const Text(
-            "안녕하세요.\n보호자님",
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 20),
-          GestureDetector(
-            onTap: _pickImage,
-            child: CircleAvatar(
-              radius: 50,
-              backgroundImage: profileImage != null
-                  ? Image.file(File(profileImage!.path)).image
-                  : null,
-              backgroundColor: Colors.grey[200],
-              child: profileImage == null
-                  ? const Icon(
-                      Icons.person,
-                      size: 50,
-                      color: Colors.grey,
-                    )
-                  : null,
-            ),
-          ),
-          const SizedBox(height: 10),
-          Text(
-            userName,
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          TextButton.icon(
-            onPressed: _navigateToEditProfile,
-            icon: const Icon(Icons.edit, size: 16, color: Colors.grey),
-            label: const Text(
-              "프로필 수정",
-              style: TextStyle(color: Colors.grey),
-            ),
-          ),
-          const SizedBox(height: 20),
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Scaffold(
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "연락처",
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      "010-9876-5432",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-                GestureDetector(
-                  onTap: () {
-                    // 연락처 변경 기능 추가
+                TextButton(
+                  onPressed: () {
+                    // 로그아웃 기능 추가
                   },
                   child: const Text(
-                    "변경하기",
-                    style: TextStyle(
-                      color: Color(0xFF5E35B1),
-                      fontWeight: FontWeight.bold,
-                    ),
+                    "로그아웃",
+                    style: TextStyle(color: Colors.grey),
                   ),
                 ),
               ],
             ),
-          ),
-        ],
+            const SizedBox(height: 16),
+            const Text(
+              "안녕하세요.\n보호자님",
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 20),
+            GestureDetector(
+              onTap: _pickImage,
+              child: CircleAvatar(
+                radius: 50,
+                backgroundImage: profileImage != null
+                    ? Image.file(File(profileImage!.path)).image
+                    : null,
+                backgroundColor: Colors.grey[200],
+                child: profileImage == null
+                    ? const Icon(
+                        Icons.person,
+                        size: 50,
+                        color: Colors.grey,
+                      )
+                    : null,
+              ),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              userName,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            TextButton.icon(
+              onPressed: _navigateToEditProfile,
+              icon: const Icon(Icons.edit, size: 16, color: Colors.grey),
+              label: const Text(
+                "프로필 수정",
+                style: TextStyle(color: Colors.grey),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "연락처",
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        userPhone,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      // 연락처 변경 기능 추가
+                    },
+                    child: const Text(
+                      "변경하기",
+                      style: TextStyle(
+                        color: Color(0xFF5E35B1),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+            _buildMenuItem(Icons.lock, "비밀번호 변경"),
+            _buildMenuItem(Icons.access_time, "간병인 이용내역"),
+            _buildMenuItem(Icons.exit_to_app, "탈퇴신청"),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMenuItem(IconData icon, String text) {
+    return ListTile(
+      leading: Icon(icon, color: Colors.grey),
+      title: Text(text),
+      onTap: () {
+        // 기능 추가
+      },
+    );
+  }
+}
+
+// Separate screen for editing profile name
+class EditProfileScreen extends StatefulWidget {
+  final String userName;
+  const EditProfileScreen({super.key, required this.userName});
+
+  @override
+  State<EditProfileScreen> createState() => _EditProfileScreenState();
+}
+
+class _EditProfileScreenState extends State<EditProfileScreen> {
+  late TextEditingController _nameController;
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController = TextEditingController(text: widget.userName);
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    super.dispose();
+  }
+
+  void _saveName() {
+    Navigator.pop(context, _nameController.text);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("프로필 수정"),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            TextField(
+              controller: _nameController,
+              decoration: const InputDecoration(
+                labelText: "이름",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: _saveName,
+              child: const Text("확인"),
+            ),
+          ],
+        ),
       ),
     );
   }
