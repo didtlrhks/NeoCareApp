@@ -249,10 +249,120 @@ class RequestCareScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text(
-        '간병 요청 화면',
-        style: TextStyle(fontSize: 24),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('간병인 요청'),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        elevation: 0,
+        foregroundColor: Colors.black,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              '간병인 요청 내역',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 16),
+            Expanded(
+              child: ListView.builder(
+                itemCount: dummyCareRequests.length,
+                itemBuilder: (context, index) {
+                  final request = dummyCareRequests[index];
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 16.0),
+                    child: CareRequestCard(request: request),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // 요청하기 버튼 동작 추가
+        },
+        backgroundColor: const Color(0xFF5E35B1),
+        child: const Icon(Icons.add, color: Colors.white),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    );
+  }
+}
+
+class CareRequestCard extends StatelessWidget {
+  final CareRequest request;
+
+  const CareRequestCard({super.key, required this.request});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16.0),
+      ),
+      elevation: 2,
+      color: const Color(0xFFEDE7F6),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Text(
+                    '기간제',
+                    style: TextStyle(color: Colors.white, fontSize: 12),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    const Icon(Icons.calendar_today, size: 16),
+                    const SizedBox(width: 4),
+                    Text(
+                      '${request.startDate.toLocal().toString().split(' ')[0]} ~ ${request.endDate.toLocal().toString().split(' ')[0]}',
+                      style: const TextStyle(fontSize: 14),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                const Row(
+                  children: [
+                    Icon(Icons.access_time, size: 16),
+                    SizedBox(width: 4),
+                    Text(
+                      '돌봄시간',
+                      style: TextStyle(fontSize: 14),
+                    ),
+                    Text(
+                      ' 01:00 ~ 02:00', // 예시 시간, 필요시 더미 데이터에 추가
+                      style: TextStyle(fontSize: 14),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            const Spacer(),
+            const Icon(Icons.arrow_forward_ios, size: 16),
+          ],
+        ),
       ),
     );
   }
