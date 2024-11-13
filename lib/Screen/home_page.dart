@@ -224,126 +224,124 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("내 정보"),
-        centerTitle: true,
-        actions: [
-          TextButton(
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextButton(
+                onPressed: () {
+                  // 로그아웃 기능 추가
+                },
+                child: const Text(
+                  "로그아웃",
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          const Text(
+            "안녕하세요.\n보호자님",
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 20),
+          CircleAvatar(
+            radius: 50,
+            backgroundColor: Colors.grey[200],
+            child: const Icon(
+              Icons.person,
+              size: 50,
+              color: Colors.grey,
+            ),
+          ),
+          const SizedBox(height: 10),
+          const Text(
+            "김네오",
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          TextButton.icon(
             onPressed: () {
-              // 로그아웃 기능 추가
+              // 프로필 수정 기능 추가
             },
-            child: const Text(
-              "로그아웃",
+            icon: const Icon(Icons.edit, size: 16, color: Colors.grey),
+            label: const Text(
+              "프로필 수정",
               style: TextStyle(color: Colors.grey),
             ),
           ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Text(
-              "안녕하세요.\n보호자님",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
+          const SizedBox(height: 20),
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            decoration: BoxDecoration(
+              color: Colors.grey[200],
+              borderRadius: BorderRadius.circular(8),
             ),
-            const SizedBox(height: 20),
-            CircleAvatar(
-              radius: 50,
-              backgroundColor: Colors.grey[200],
-              child: const Icon(
-                Icons.person,
-                size: 50,
-                color: Colors.grey,
-              ),
-            ),
-            const SizedBox(height: 10),
-            const Text(
-              "김네오",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            TextButton.icon(
-              onPressed: () {
-                // 프로필 수정 기능 추가
-              },
-              icon: const Icon(Icons.edit, size: 16, color: Colors.grey),
-              label: const Text(
-                "프로필 수정",
-                style: TextStyle(color: Colors.grey),
-              ),
-            ),
-            const SizedBox(height: 20),
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "연락처",
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                      SizedBox(height: 4),
-                      Text(
-                        "010-9876-5432",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      // 연락처 변경 기능 추가
-                    },
-                    child: const Text(
-                      "변경하기",
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "연락처",
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      "010-9876-5432",
                       style: TextStyle(
-                        color: Color(0xFF5E35B1),
+                        fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
+                  ],
+                ),
+                GestureDetector(
+                  onTap: () {
+                    // 연락처 변경 기능 추가
+                  },
+                  child: const Text(
+                    "변경하기",
+                    style: TextStyle(
+                      color: Color(0xFF5E35B1),
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            const SizedBox(height: 20),
-            Divider(color: Colors.grey[300]),
-            ListTile(
-              leading: const Icon(Icons.lock, color: Colors.black),
-              title: const Text("비밀번호 변경"),
-              onTap: () {
-                // 비밀번호 변경 페이지로 이동
-              },
-            ),
-            Divider(color: Colors.grey[300]),
-            ListTile(
-              leading: const Icon(Icons.history, color: Colors.black),
-              title: const Text("간병인 이용내역"),
-              onTap: () {
-                // 간병인 이용내역 페이지로 이동
-              },
-            ),
-            Divider(color: Colors.grey[300]),
-            ListTile(
-              leading: const Icon(Icons.exit_to_app, color: Colors.black),
-              title: const Text("탈퇴 신청"),
-              onTap: () {
-                // 탈퇴 신청 페이지로 이동
-              },
-            ),
-          ],
-        ),
+          ),
+          const SizedBox(height: 20),
+          Divider(color: Colors.grey[300]),
+          ListTile(
+            leading: const Icon(Icons.lock, color: Colors.black),
+            title: const Text("비밀번호 변경"),
+            onTap: () {
+              // 비밀번호 변경 페이지로 이동
+            },
+          ),
+          Divider(color: Colors.grey[300]),
+          ListTile(
+            leading: const Icon(Icons.history, color: Colors.black),
+            title: const Text("간병인 이용내역"),
+            onTap: () {
+              // 간병인 이용내역 페이지로 이동
+            },
+          ),
+          Divider(color: Colors.grey[300]),
+          ListTile(
+            leading: const Icon(Icons.exit_to_app, color: Colors.black),
+            title: const Text("탈퇴 신청"),
+            onTap: () {
+              // 탈퇴 신청 페이지로 이동
+            },
+          ),
+        ],
       ),
     );
   }
