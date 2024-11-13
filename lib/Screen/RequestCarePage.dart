@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_neocare/Screen/SelectCareTypePage.dart';
+import 'package:flutter_application_neocare/screen/SelectCareTypePage.dart';
 
 class RequestCarePage extends StatefulWidget {
   const RequestCarePage({super.key});

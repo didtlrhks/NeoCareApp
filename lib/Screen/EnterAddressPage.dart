@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_neocare/Screen/PatientInfoPage.dart';
+import 'package:flutter_application_neocare/screen/PatientInfoPage.dart';
 
 class EnterAddressPage extends StatefulWidget {
   const EnterAddressPage({super.key});

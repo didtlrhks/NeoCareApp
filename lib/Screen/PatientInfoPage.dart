@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_application_neocare/Screen/home_page.dart';
 
 class PatientInfoPage extends StatefulWidget {
   const PatientInfoPage({super.key});
@@ -16,14 +16,29 @@ class _PatientInfoPageState extends State<PatientInfoPage> {
   String? selectedCareLevel;
   String? selectedMobility;
 
-  void _showToastMessage() {
-    Fluttertoast.showToast(
-      msg: "요청 끝",
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      backgroundColor: Colors.black,
-      textColor: Colors.white,
-      fontSize: 16.0,
+  void _showDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("요청 완료"),
+          content: const Text("요청이 완료되었습니다."),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // 다이얼로그 닫기
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                    builder: (context) => const HomePage(), // 이동할 페이지
+                  ),
+                  (route) => false, // 네비게이션 스택을 모두 제거
+                );
+              },
+              child: const Text("확인"),
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -202,7 +217,7 @@ class _PatientInfoPageState extends State<PatientInfoPage> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  _showToastMessage(); // 요청 끝 토스트 메시지 표시
+                  _showDialog(); // 요청 완료 다이얼로그 표시
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black,

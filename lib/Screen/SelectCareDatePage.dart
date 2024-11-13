@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_neocare/Screen/SelectCareTimePage.dart';
+import 'package:flutter_application_neocare/screen/SelectCareTimePage.dart';
 import 'package:intl/intl.dart';
 
 class SelectCareDatePage extends StatefulWidget {

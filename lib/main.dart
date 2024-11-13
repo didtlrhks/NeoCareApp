@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'Screen/caregiver_page.dart';
-import 'Screen/guardian_page.dart';
+import 'screen/caregiver_page.dart';
+import 'screen/guardian_page.dart';
 
 void main() {
   runApp(const MyApp());
