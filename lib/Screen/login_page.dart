@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_neocare/screen/caregiver_page.dart';
+import 'package:flutter_application_neocare/screen/caregiverscreens/caregiver_page.dart';
 import 'package:flutter_application_neocare/screen/guardian_page.dart';
 import 'home_page.dart';
 import 'signup_selection_page.dart'; // 회원 유형 선택 페이지
