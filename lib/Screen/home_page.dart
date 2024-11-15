@@ -383,7 +383,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 }
 
-// Separate screen for editing profile name
 class EditProfileScreen extends StatefulWidget {
   final String userName;
   const EditProfileScreen({super.key, required this.userName});

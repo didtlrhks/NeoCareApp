@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screen/caregiver_page.dart';
-import 'screen/guardian_page.dart';
+import 'package:flutter_application_neocare/screen/login_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,6 +24,13 @@ class MyApp extends StatelessWidget {
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
 
+  void _navigateToRoleBasedPage(BuildContext context, String role) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => LoginPage(role: role)),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -45,11 +51,12 @@ class WelcomeScreen extends StatelessWidget {
             elevation: 2,
             child: InkWell(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const CaregiverPage()),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //       builder: (context) => const CaregiverPage()),
+                // );
+                _navigateToRoleBasedPage(context, 'guardian');
               },
               child: const Padding(
                 padding:
@@ -98,10 +105,11 @@ class WelcomeScreen extends StatelessWidget {
             elevation: 2,
             child: InkWell(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const GuardianPage()),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => const GuardianPage()),
+                // );
+                _navigateToRoleBasedPage(context, 'caregiver');
               },
               child: const Padding(
                 padding:

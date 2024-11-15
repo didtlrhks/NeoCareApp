@@ -1,9 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_neocare/screen/caregiver_page.dart';
+import 'package:flutter_application_neocare/screen/guardian_page.dart';
 import 'home_page.dart';
 import 'signup_selection_page.dart'; // 회원 유형 선택 페이지
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+  final String role;
+  const LoginPage({super.key, required this.role});
+
+  void _handleLogin(BuildContext context) {
+    if (role == 'guardian') {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const CaregiverProfilePage()),
+        (Route<dynamic> route) => false,
+      );
+    } else if (role == 'caregiver') {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const HomePage()),
+        (Route<dynamic> route) => false,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,13 +65,7 @@ class LoginPage extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    // 로그인 버튼을 누르면 홈 화면으로 이동
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const HomePage(),
-                      ),
-                    );
+                    _handleLogin(context);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.grey[300],
