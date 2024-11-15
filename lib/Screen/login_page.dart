@@ -9,13 +9,13 @@ class LoginPage extends StatelessWidget {
   const LoginPage({super.key, required this.role});
 
   void _handleLogin(BuildContext context) {
-    if (role == 'guardian') {
+    if (role == 'caregiver') {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => const CaregiverProfilePage()),
         (Route<dynamic> route) => false,
       );
-    } else if (role == 'caregiver') {
+    } else if (role == 'guardian') {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => const HomePage()),
